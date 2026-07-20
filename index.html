@@ -75,35 +75,6 @@
             z-index: -1;
         }
 
-        .cursor {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all .15s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor-dot {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform .1s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor.hover {
-            transform: translate(-50%, -50%) scale(1.5);
-            background: rgba(0, 255, 136, 0.1);
-        }
-
         /* Visitor Counter Badge */
         .visitor-badge {
             position: fixed;
@@ -528,8 +499,8 @@
         }
 
         .stat-number.text-stat {
-            font-size: 3.5rem;
-            /* line-height: 1.3; */
+            font-size: 1.8rem;
+            line-height: 1.3;
         }
 
         .stat-label {
@@ -918,6 +889,30 @@
             fill: var(--dark)
         }
 
+        .play-btn.loading svg {
+            display: none !important
+        }
+
+        .play-btn .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(10, 14, 26, 0.3);
+            border-top-color: var(--dark);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+
+        .play-btn.loading .spinner {
+            display: block
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
         .player-progress-wrap {
             flex: 1;
             display: flex;
@@ -1170,8 +1165,44 @@
             transition: all .3s ease;
         }
 
-        /* Responsive Breakpoints */
+        /* ============================================
+   RESPONSIVE BREAKPOINTS — 5 DEVICE CATEGORIES
+   1) Large Desktop   > 1440px  (default styles above)
+   2) Laptop           1025–1440px
+   3) Tablet            769–1024px
+   4) Large Mobile      481–768px
+   5) Small Mobile      ≤ 480px
+   ============================================ */
+
+        /* ---------- 2) LAPTOP (max-width:1440px) ---------- */
+        @media(max-width:1440px) {
+            .hero-content {
+                max-width: 800px
+            }
+
+            .section {
+                padding: 7rem 5%
+            }
+        }
+
+        /* ---------- 3) TABLET (max-width:1024px) ---------- */
         @media(max-width:1024px) {
+            nav {
+                padding: 1.3rem 4%
+            }
+
+            .section {
+                padding: 6rem 4%
+            }
+
+            .hero {
+                padding: 0 4%
+            }
+
+            .hero h1 {
+                font-size: clamp(2.8rem, 6vw, 5rem)
+            }
+
             .contact-grid {
                 grid-template-columns: 1fr;
                 gap: 2.5rem
@@ -1181,19 +1212,39 @@
             .music-section {
                 padding: 3.5rem 2.5rem
             }
+
+            .skills {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+            }
+
+            .projects {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+            }
+
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem
+            }
+
+            .stat-card {
+                padding: 2rem 1rem
+            }
+
+            .stat-number {
+                font-size: 2.8rem
+            }
+
+            .stat-number.text-stat {
+                font-size: 1.5rem
+            }
+
+            .music-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
+            }
         }
 
+        /* ---------- 4) LARGE MOBILE / SMALL TABLET (max-width:768px) ---------- */
         @media(max-width:768px) {
-
-            .cursor,
-            .cursor-dot {
-                display: none
-            }
-
-            body {
-                cursor: auto
-            }
-
             nav {
                 padding: 1.2rem 5%
             }
@@ -1259,6 +1310,10 @@
                 font-size: 2rem
             }
 
+            .stack-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
             nav ul {
                 display: none;
                 position: absolute;
@@ -1271,6 +1326,8 @@
                 gap: 1.5rem;
                 border-bottom: 1px solid var(--border);
                 align-items: flex-start;
+                max-height: 80vh;
+                overflow-y: auto;
             }
 
             nav ul.active {
@@ -1288,44 +1345,103 @@
             }
 
             .visitor-badge {
-                left: 15px;
-                bottom: 15px;
-                font-size: 0.75rem;
-                padding: 0.6rem 1rem
+                left: 12px;
+                bottom: 12px;
+                font-size: 0.7rem;
+                padding: 0.55rem 0.9rem;
+                max-width: calc(100% - 24px)
+            }
+
+            .visitor-badge span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis
             }
 
             .player-controls {
-                flex-wrap: wrap
+                flex-wrap: wrap;
+                gap: 0.8rem
             }
 
             .section-title {
                 font-size: 2.2rem
             }
+
+            .music-card {
+                padding: 1.4rem
+            }
+
+            .project-links {
+                flex-wrap: wrap
+            }
         }
 
+        /* ---------- 5) SMALL MOBILE (max-width:480px) ---------- */
         @media(max-width:480px) {
+            nav {
+                padding: 1rem 5%
+            }
+
+            .logo {
+                font-size: 1.25rem
+            }
+
             .hero h1 {
-                font-size: 1.9rem
+                font-size: 2.1rem
+            }
+
+            .hero-realname {
+                font-size: 0.85rem
             }
 
             .hero-subtitle {
-                font-size: 0.9rem
+                font-size: 0.85rem;
+                letter-spacing: 1px
+            }
+
+            .hero p {
+                font-size: 0.95rem
             }
 
             .section-title {
-                font-size: 1.8rem
+                font-size: 1.7rem
+            }
+
+            .section-description {
+                font-size: 0.95rem
             }
 
             .stat-number {
-                font-size: 2rem
+                font-size: 1.8rem
+            }
+
+            .stat-number.text-stat {
+                font-size: 1.1rem
             }
 
             .stats {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
+                gap: 1rem
+            }
+
+            .stat-card {
+                padding: 1.6rem 1rem
+            }
+
+            .skill-card {
+                padding: 1.8rem 1.4rem
+            }
+
+            .stack-grid {
+                grid-template-columns: repeat(2, 1fr)
             }
 
             .music-card-header {
                 flex-wrap: wrap
+            }
+
+            .music-card {
+                padding: 1.2rem
             }
 
             .project-links {
@@ -1336,19 +1452,91 @@
                 width: 100%;
                 justify-content: center
             }
+
+            .project-content {
+                padding: 1.5rem
+            }
+
+            .contact,
+            .music-section {
+                padding: 2rem 1.2rem;
+                border-radius: 20px
+            }
+
+            .contact-form {
+                padding: 1.6rem
+            }
+
+            .contact-info h2 {
+                font-size: 1.7rem
+            }
+
+            .contact-detail span {
+                font-size: 0.9rem;
+                word-break: break-word
+            }
+
+            .player-controls {
+                gap: 0.6rem
+            }
+
+            .play-btn {
+                width: 42px;
+                height: 42px
+            }
+
+            .time-labels {
+                font-size: 0.7rem
+            }
+
+            .visitor-badge {
+                font-size: 0.65rem;
+                padding: 0.5rem 0.8rem;
+                gap: 0.4rem
+            }
+
+            .footer-bottom {
+                font-size: 0.8rem
+            }
+        }
+
+        /* ---------- EXTRA SMALL MOBILE (max-width:360px) ---------- */
+        @media(max-width:360px) {
+            .hero h1 {
+                font-size: 1.8rem
+            }
+
+            .section-title {
+                font-size: 1.5rem
+            }
+
+            .stat-number {
+                font-size: 1.6rem
+            }
+
+            .btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.9rem
+            }
+
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="cursor"></div>
-    <div class="cursor-dot"></div>
     <canvas id="particles"></canvas>
 
     <div class="visitor-badge">
         <div class="visitor-dot"></div>
-        <span>Tashrifchilar: <span class="visitor-count" id="visitorCount">...</span></span>
+        <span id="visitorText">Tashrifchilar: <span class="visitor-count" id="visitorCount">...</span></span>
+        <img id="visitorImg" style="display:none;height:18px"
+            src="https://visitor-badge.laobi.icu/badge?page_id=vymdrix.mukimov.portfolio&left_color=0a0e1a&right_color=00cc6a&left_text=Tashrifchilar"
+            alt="tashrifchilar soni" onerror="this.style.display='none'">
     </div>
 
     <nav>
@@ -1405,8 +1593,8 @@
                 <div class="stat-label">Yosh</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number text-stat">Kokand</div>
-                <div class="stat-label">Manzil</div>
+                <div class="stat-number text-stat">CyberSecurity</div>
+                <div class="stat-label">Qiziqish</div>
             </div>
         </div>
     </section>
@@ -1652,7 +1840,7 @@
                             <div class="music-artist">Arctic Monkeys</div>
                         </div>
                     </div>
-                    <audio id="audio1" src="music/505.mp3" preload="metadata"></audio>
+                    <audio id="audio1" src="music/505.mp3" preload="none"></audio>
                     <div class="player-controls">
                         <button class="play-btn" data-audio="audio1" aria-label="Play">
                             <svg class="icon-play" viewBox="0 0 24 24">
@@ -1661,6 +1849,7 @@
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none">
                                 <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
                             </svg>
+                            <span class="spinner"></span>
                         </button>
                         <div class="player-progress-wrap">
                             <div class="progress-bar" data-audio="audio1">
@@ -1689,7 +1878,7 @@
                             <div class="music-artist">GUF</div>
                         </div>
                     </div>
-                    <audio id="audio2" src="music/icebaby-guf.mp3" preload="metadata"></audio>
+                    <audio id="audio2" src="music/icebaby-guf.mp3" preload="none"></audio>
                     <div class="player-controls">
                         <button class="play-btn" data-audio="audio2" aria-label="Play">
                             <svg class="icon-play" viewBox="0 0 24 24">
@@ -1698,6 +1887,7 @@
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none">
                                 <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
                             </svg>
+                            <span class="spinner"></span>
                         </button>
                         <div class="player-progress-wrap">
                             <div class="progress-bar" data-audio="audio2">
@@ -1726,7 +1916,7 @@
                             <div class="music-artist">The Handsome Family</div>
                         </div>
                     </div>
-                    <audio id="audio3" src="music/farfromanyroad.mp3" preload="metadata"></audio>
+                    <audio id="audio3" src="music/farfromanyroad.mp3" preload="none"></audio>
                     <div class="player-controls">
                         <button class="play-btn" data-audio="audio3" aria-label="Play">
                             <svg class="icon-play" viewBox="0 0 24 24">
@@ -1735,6 +1925,7 @@
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none">
                                 <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
                             </svg>
+                            <span class="spinner"></span>
                         </button>
                         <div class="player-progress-wrap">
                             <div class="progress-bar" data-audio="audio3">
@@ -1875,13 +2066,21 @@
 
     <script>
         // Particle System
+        // Optimized for mobile: fewer particles + no connecting-line calculations
+        // (which are O(n²) and were causing jank/lag on phones & tablets, making the
+        // page feel "heavy" while scrolling and interacting with sections).
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let isMobile = window.innerWidth <= 768;
+        let particleCount = isMobile ? 24 : 80;
+        const drawConnections = !isMobile;
+        const connectionDistance = 120;
+
         const particles = [];
-        const particleCount = 80;
 
         class Particle {
             constructor() {
@@ -1908,49 +2107,56 @@
             }
         }
 
-        for (let i = 0; i < particleCount; i++) { particles.push(new Particle()) }
+        function initParticles() {
+            particles.length = 0;
+            for (let i = 0; i < particleCount; i++) { particles.push(new Particle()) }
+        }
+        initParticles();
 
+        let animId = null;
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(particle => { particle.update(); particle.draw() });
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 120) {
-                        ctx.strokeStyle = `rgba(0,255,136,${0.15 * (1 - distance / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+            if (drawConnections) {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < connectionDistance) {
+                            ctx.strokeStyle = `rgba(0,255,136,${0.15 * (1 - distance / connectionDistance)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
                     }
                 }
             }
-            requestAnimationFrame(animateParticles);
+            animId = requestAnimationFrame(animateParticles);
         }
-        animateParticles();
 
+        // Respect users who prefer less motion, and skip entirely on very small/low-power screens if desired
+        if (!prefersReducedMotion) {
+            animateParticles();
+        } else {
+            particles.forEach(particle => particle.draw());
+        }
+
+        let resizeTimeout;
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorDot = document.querySelector('.cursor-dot');
-
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
-        });
-
-        document.querySelectorAll('a, button, .project-card, .skill-card, .music-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const nowMobile = window.innerWidth <= 768;
+                if (nowMobile !== isMobile) {
+                    isMobile = nowMobile;
+                    particleCount = isMobile ? 24 : 80;
+                    initParticles();
+                }
+            }, 200);
         });
 
         // Typing Effect
@@ -1986,6 +2192,11 @@
         });
 
         // Reveal Animation
+        // NOTE: threshold was previously 0.2, which requires 20% of a section to be
+        // visible before it reveals. On small/mobile viewports, tall sections
+        // (Skills, Projects, etc.) never reach 20% visible ratio, so they stayed
+        // invisible (opacity:0) permanently. Fixed with a much lower threshold +
+        // rootMargin so sections trigger as soon as they start entering view.
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1994,6 +2205,8 @@
                         bar.style.width = bar.dataset.width;
                     });
                     entry.target.querySelectorAll('.stat-number:not(.text-stat)').forEach(counter => {
+                        if (counter.dataset.animated) return;
+                        counter.dataset.animated = 'true';
                         const target = parseInt(counter.dataset.target);
                         let current = 0;
                         const increment = target / 50;
@@ -2007,11 +2220,23 @@
                             }
                         }, 30);
                     });
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Safety fallback: if for any reason a section never gets revealed
+        // (older browser, observer edge case), force it visible after load
+        // so content is never permanently hidden.
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.reveal:not(.active)').forEach(el => {
+                    el.classList.add('active');
+                });
+            }, 2500);
+        });
 
         // Smooth Scroll (JS fallback alongside CSS scroll-behavior)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2028,16 +2253,27 @@
         const navMenu = document.querySelector('nav ul');
         mobileToggle?.addEventListener('click', () => { navMenu.classList.toggle('active') });
 
-        // Real-time Visitor Counter (CountAPI)
-        const visitorCountEl = document.getElementById('visitorCount');
-        fetch('https://api.countapi.xyz/hit/vymdrix-portfolio-mukimov/visits')
-            .then(res => res.json())
-            .then(data => {
-                if (visitorCountEl) visitorCountEl.textContent = data.value;
-            })
-            .catch(() => {
-                if (visitorCountEl) visitorCountEl.textContent = 'N/A';
+        // Real-time Visitor Counter
+        // Uses visitor-badge.laobi.icu - a lightweight image-based counter service.
+        // This avoids fetch()/CORS failures entirely since images load like any normal
+        // resource and work reliably across all browsers, devices and networks.
+        const visitorImg = document.getElementById('visitorImg');
+        const visitorText = document.getElementById('visitorText');
+        if (visitorImg) {
+            visitorImg.addEventListener('load', () => {
+                visitorText.style.display = 'none';
+                visitorImg.style.display = 'inline-block';
             });
+            visitorImg.addEventListener('error', () => {
+                document.getElementById('visitorCount').textContent = '—';
+            });
+            // Safety timeout: if the badge takes too long, keep the text fallback visible
+            setTimeout(() => {
+                if (visitorImg.style.display === 'none' && document.getElementById('visitorCount').textContent === '...') {
+                    document.getElementById('visitorCount').textContent = '—';
+                }
+            }, 5000);
+        }
 
         // Contact Form (Formspree)
         const contactForm = document.getElementById('contactForm');
@@ -2081,6 +2317,26 @@
             return `${m}:${s < 10 ? '0' : ''}${s}`;
         }
 
+        function setPlayerLoading(btn, isLoading) {
+            btn.classList.toggle('loading', isLoading);
+        }
+
+        function resetOtherPlayers(exceptAudio) {
+            document.querySelectorAll('audio').forEach(a => {
+                if (a !== exceptAudio && !a.paused) {
+                    a.pause();
+                }
+            });
+            document.querySelectorAll('.play-btn').forEach(btn => {
+                const a = document.getElementById(btn.dataset.audio);
+                if (a !== exceptAudio) {
+                    btn.querySelector('.icon-play').style.display = 'block';
+                    btn.querySelector('.icon-pause').style.display = 'none';
+                    setPlayerLoading(btn, false);
+                }
+            });
+        }
+
         document.querySelectorAll('.music-card').forEach(card => {
             const playBtn = card.querySelector('.play-btn');
             const audioId = playBtn.dataset.audio;
@@ -2096,32 +2352,55 @@
                 durationTimeEl.textContent = formatTime(audio.duration);
             });
 
-            playBtn.addEventListener('click', () => {
-                document.querySelectorAll('audio').forEach(a => {
-                    if (a !== audio && !a.paused) {
-                        a.pause();
-                        const otherBtn = document.querySelector(`.play-btn[data-audio="${a.id}"]`);
-                        if (otherBtn) {
-                            otherBtn.querySelector('.icon-play').style.display = 'block';
-                            otherBtn.querySelector('.icon-pause').style.display = 'none';
-                        }
-                    }
-                });
+            // Buffering / slow network -> show spinner
+            audio.addEventListener('waiting', () => {
+                setPlayerLoading(playBtn, true);
+            });
 
+            // Enough data to play smoothly -> hide spinner
+            audio.addEventListener('playing', () => {
+                setPlayerLoading(playBtn, false);
+                iconPlay.style.display = 'none';
+                iconPause.style.display = 'block';
+            });
+
+            audio.addEventListener('canplay', () => {
+                setPlayerLoading(playBtn, false);
+            });
+
+            audio.addEventListener('pause', () => {
+                setPlayerLoading(playBtn, false);
+                iconPlay.style.display = 'block';
+                iconPause.style.display = 'none';
+            });
+
+            audio.addEventListener('error', () => {
+                setPlayerLoading(playBtn, false);
+            });
+
+            playBtn.addEventListener('click', () => {
                 if (audio.paused) {
-                    audio.play();
-                    iconPlay.style.display = 'none';
-                    iconPause.style.display = 'block';
+                    resetOtherPlayers(audio);
+                    // File hasn't started loading yet (preload="none") -> show spinner right away
+                    if (audio.readyState < 3) {
+                        setPlayerLoading(playBtn, true);
+                    }
+                    const playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                            setPlayerLoading(playBtn, false);
+                        });
+                    }
                 } else {
                     audio.pause();
-                    iconPlay.style.display = 'block';
-                    iconPause.style.display = 'none';
                 }
             });
 
             audio.addEventListener('timeupdate', () => {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressFill.style.width = percent + '%';
+                if (!isNaN(audio.duration)) {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progressFill.style.width = percent + '%';
+                }
                 currentTimeEl.textContent = formatTime(audio.currentTime);
             });
 
@@ -2133,6 +2412,7 @@
             });
 
             progressBar.addEventListener('click', (e) => {
+                if (!audio.duration) return;
                 const rect = progressBar.getBoundingClientRect();
                 const percent = (e.clientX - rect.left) / rect.width;
                 audio.currentTime = percent * audio.duration;
